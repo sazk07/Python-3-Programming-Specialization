@@ -3,14 +3,16 @@ Write code to assign to the variable map_testing all the elements
 in lst_check while adding the string “Fruit: ” to the beginning of each element using mapping.
 """
 lst_check = ['plums', 'watermelon', 'kiwi', 'strawberries', 'blueberries', 'peaches', 'apples', 'mangos', 'papaya']
-map_lst_check=map(lambda element: f"Fruit: {element}", lst_check)
+add_string=lambda element: f"Fruit: {element}"
+map_lst_check=map(add_string, lst_check)
 map_testing=list(map_lst_check)
 """
 Below, we have provided a list of strings called countries. 
 Use filter to produce a list called b_countries that only contains the strings from countries that begin with B.
 """
 countries = ['Canada', 'Mexico', 'Brazil', 'Chile', 'Denmark', 'Botswana', 'Spain', 'Britain', 'Portugal', 'Russia', 'Thailand', 'Bangladesh', 'Nigeria', 'Argentina', 'Belarus', 'Laos', 'Australia', 'Panama', 'Egypt', 'Morocco', 'Switzerland', 'Belgium']
-filtered_countries=filter(lambda element: element if element.startswith('B') else None, countries)
+func_starts_with_b=lambda element: element if element.startswith('B') else None
+filtered_countries=filter(func_starts_with_b, countries)
 b_countries=list(filtered_countries)
 """
 Below, we have provided a list of tuples that contain the names 
@@ -39,7 +41,8 @@ are combined into one big list and assigned to the variable opposites if they ar
 l1 = ['left', 'up', 'front']
 l2 = ['right', 'down', 'back']
 zipped_list=zip(l1,l2)
-filtered_tuple_of_zip=filter(lambda together: together if len(together[0])>3 and len(together[1])>3 else None,zipped_list)
+func_concatenate_together=lambda together: together if len(together[0])>3 and len(together[1])>3 else None
+filtered_tuple_of_zip=filter(func_concatenate_together,zipped_list)
 opposites = list(filtered_tuple_of_zip)
 """
 Below, we have provided a species list and a population list. 
