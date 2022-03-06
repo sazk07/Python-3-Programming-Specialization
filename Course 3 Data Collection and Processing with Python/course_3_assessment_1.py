@@ -85,7 +85,7 @@ If it does not contain the letter “t”, save the athlete name into list other
 athletes = [['Phelps', 'Lochte', 'Schooling', 'Ledecky', 'Franklin'], ['Felix', 'Bolt', 'Gardner', 'Eaton'], ['Biles', 'Douglas', 'Hamm', 'Raisman', 'Mikulak', 'Dalton']]
 t=list()
 other=list()
-def list_flatter(input_list):
+def list_flatter(input_list: list) -> list:
     flat_list=[item for sublist in input_list for item in sublist]
     return flat_list
 new_athletes=list_flatter(athletes)
