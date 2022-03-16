@@ -5,8 +5,12 @@ is an optional parameter that can either be a number or a
 string but whose default is 6. The function should return 
 the first parameter multiplied by the second.
 """
-def mult(input_integer: int, num_or_string: Union[int, str]=6) -> int:
-    return num_or_string*input_integer
+
+
+def mult(input_integer: int, num_or_string: int | str = 6) -> int:
+    return input_integer * int(num_or_string)
+
+
 """
 The following function, `greeting`, does not work. Please fix 
 the code so that it runs without error. This only requires one 
@@ -18,8 +22,12 @@ print(greeting("Bob"))
 print(greeting(""))
 print(greeting("Bob", excl="!!!"))
 """
+
+
 def greeting(name: str, greeting="Hello ", excl="!") -> str:
     return greeting + name + excl
+
+
 """
 Below is a function, `sum`, that does not work. Change the 
 function definition so the code works. The function should 
@@ -29,8 +37,12 @@ parameter, `intz` with a defualt value of 5.
 def sum(intz=5, intx):
     return intz + intx
 """
+
+
 def sum(intx: int, intz=5) -> int:
     return intz + intx
+
+
 """
 Write a function, `test`, that takes in three parameters: 
 a required integer, an optional boolean whose default value is `True`, 
@@ -39,12 +51,18 @@ If the boolean parameter is True, the function should test
 to see if the integer is a key in the dictionary. The value of that key should 
 then be returned. If the boolean parameter is False, return the boolean value “False”.
 """
-def test(req_int: int, opt_bool: bool=True, dict1: dict={2:3,4:5,6:8}) -> Union[dict,bool]:
+
+
+def test(
+    req_int: int, opt_bool: bool = True, dict1: dict = {2: 3, 4: 5, 6: 8}
+) -> dict | bool:
     if opt_bool == True:
         if req_int in dict1.keys():
             return dict1[req_int]
     else:
         return opt_bool
+
+
 """
 Write a function called `checkingIfIn` that takes three parameters. 
 The first is a required parameter, which should be a string. 
@@ -58,8 +76,22 @@ But if the second paramter is `False`, then the function should check
 to see if the first parameter is not a key of the third. If it's not, 
 the function should return `True` in this case, and if it is, it should return False``.
 """
-def checkingIfIn(req_str: str, direction: bool=True, d: dict={'apple': 2, 'pear': 1, 'fruit': 19, 'orange': 5, 'banana': 3, 'grapes': 2, 'watermelon': 7}) -> bool:
-    if direction==True:
+
+
+def checkingIfIn(
+    req_str: str,
+    direction: bool = True,
+    d: dict = {
+        "apple": 2,
+        "pear": 1,
+        "fruit": 19,
+        "orange": 5,
+        "banana": 3,
+        "grapes": 2,
+        "watermelon": 7,
+    },
+) -> bool:
+    if direction == True:
         if req_str in d.keys():
             return True
         else:
@@ -69,6 +101,8 @@ def checkingIfIn(req_str: str, direction: bool=True, d: dict={'apple': 2, 'pear'
             return False
         else:
             return True
+
+
 """
 We have provided the function `checkingIfIn` such that if the 
 first input parameter is in the third, dictionary, input parameter, 
@@ -91,6 +125,6 @@ def checkingIfIn(a, direction = True, d = {'apple': 2, 'pear': 1, 'fruit': 19, '
 # Call the function using the first and third parameter so that the value 8 is assigned to the variable param_check
 """
 c_false = checkingIfIn(2200)
-c_true = checkingIfIn(2200,False)
-fruit_ans = checkingIfIn('fruit')
-param_check = checkingIfIn('apple',d={'apple':8})
+c_true = checkingIfIn(2200, False)
+fruit_ans = checkingIfIn("fruit")
+param_check = checkingIfIn("apple", d={"apple": 8})
