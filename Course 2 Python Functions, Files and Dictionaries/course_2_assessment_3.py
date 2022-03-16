@@ -19,7 +19,7 @@ Create a dictionary, `freq`, that displays each character in string `str1` as th
 and its frequency as the value.
 """
 str1 = "peter piper picked a peck of pickled peppers"
-freq = dict()
+freq = {}
 for charac in str1:
     if charac not in freq:
         freq[charac] = 0
@@ -30,7 +30,7 @@ Create a dictionary named `counts` that contains each
 letter in `s1` and the number of times it occurs.
 """
 s1 = "hello"
-counts = dict()
+counts = {}
 for letter in s1:
     if letter not in counts:
         counts[letter] = 0
@@ -40,7 +40,7 @@ Create a dictionary, `freq_words`, that contains each
 word in string `str1` as the key and its frequency as the value.
 """
 str1 = "I wish I wish with all my heart to fly with dragons in a land apart"
-freq_words = dict()
+freq_words = {}
 words = str1.split()
 for word in words:
     if word not in freq_words:
@@ -52,7 +52,7 @@ so that the key is a word and the value is how many times
 you have seen that word.
 """
 sent = "Singing in the rain and playing in the rain are two entirely different situations but both can be good"
-wrd_d = dict()
+wrd_d = {}
 words = sent.split()
 for word in words:
     if word not in wrd_d:
@@ -64,7 +64,7 @@ the string `sally` and its frequency. Then, find the most frequent
 letter based on the dictionary. Assign this letter to the variable `best_char`.
 """
 sally = "sally sells sea shells by the sea shore"
-characters = dict()
+characters = {}
 for charac in sally:
     if charac not in characters:
         characters[charac] = 0
@@ -77,7 +77,7 @@ and its frequency. Then, find the least frequent letter
 in the string and assign the letter to the variable `worst_char`.
 """
 sally = "sally sells sea shells by the sea shore and by the road"
-characters = dict()
+characters = {}
 for charac in sally:
     if charac not in characters:
         characters[charac] = 0
@@ -90,7 +90,7 @@ should not be counted separately as upper-case and lower-case.
 Intead, all of them should be counted as lower-case.
 """
 string1 = "There is a tide in the affairs of men, Which taken at the flood, leads on to fortune. Omitted, all the voyage of their life is bound in shallows and in miseries. On such a full sea are we now afloat. And we must take the current when it serves, or lose our ventures."
-letter_counts = dict()
+letter_counts = {}
 lower_case_string1 = string1.lower()
 for letter in lower_case_string1:
     if letter not in letter_counts:
@@ -103,7 +103,7 @@ was seen. Make sure that there are no repeats of characters as keys,
 such that “T” and “t” are both seen as a “t” for example.
 """
 p = "Summer is a great time to go outside. You have to be careful of the sun though because of the heat."
-low_d = dict()
+low_d = {}
 lowercase_p = p.lower()
 for letter in lowercase_p:
     if letter not in low_d:
