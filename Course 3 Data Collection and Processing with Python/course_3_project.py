@@ -19,25 +19,34 @@ The cache includes data for the following queries:
 | Bridesmaids | movies | 5 |
 | Sherlock Holmes | movies | 5 |
 """
-import json
 import requests
+
+
 def get_movies_from_tastedive(take: str) -> dict:
-    baseurl = 'https://tastedive.com/api/similar'
-    params_diction = dict()
-    params_diction['q'] = take
-    params_diction['type'] = 'movies'
-    params_diction['limit'] = 5
-    response = requests.get(baseurl, params=params_diction) # use module "requests_with_caching" instead of "requests" module in Runestone to avoid any server rate limit
+    baseurl = "https://tastedive.com/api/similar"
+    params_diction = {}
+    params_diction["q"] = take
+    params_diction["type"] = "movies"
+    params_diction["limit"] = 5
+    response = requests.get(
+        baseurl, params=params_diction
+    )  # use module "requests_with_caching" instead of "requests" module in Runestone to avoid any server rate limit
     movies_similar = response.json()
     return movies_similar
+
+
 """
 Please copy the completed function from above into this active code window. 
 Next, you will need to write a function that extracts just the list of movie 
 titles from a dictionary returned by get_movies_from_tastedive. Call it extract_movie_titles.
 """
-def extract_movie_titles(get_movies_from_tastedive: dict) -> list:
-    dict_similar_titles = get_movies_from_tastedive["Similar"]["Results"]
+
+
+def extract_movie_titles(dictionary_of_similar_movies: dict) -> list:
+    dict_similar_titles = dictionary_of_similar_movies["Similar"]["Results"]
     return [iterable_dict["Name"] for iterable_dict in dict_similar_titles]
+
+
 """
 Please copy the completed functions from the two code windows above 
 into this active code window. Next, you'll write a function, 
@@ -45,10 +54,15 @@ called get_related_titles. It takes a list of movie titles as input.
 It gets five related movies for each from TasteDive, extracts the titles for all of them, 
 and combines them all into a single list. Don't include the same movie twice.
 """
+
+
 def get_related_titles(movies: list) -> list:
-    intermediate_list=map(extract_movie_titles, map(get_movies_from_tastedive, movies))
+    intermediate_list = map(
+        extract_movie_titles, map(get_movies_from_tastedive, movies)
+    )
+
     def minifunc(input_nested_list: list) -> list:
-        new_list=list()
+        new_list = []
         for list_ in input_nested_list:
             for element in list_:
                 if element not in new_list:
@@ -56,8 +70,11 @@ def get_related_titles(movies: list) -> list:
                 else:
                     pass
         return new_list[:5]
-    answer=minifunc(intermediate_list)
+
+    answer = minifunc(intermediate_list)
     return answer
+
+
 """
 Your next task will be to fetch data from OMDB. The documentation for 
 the API is at https://www.omdbapi.com/
@@ -69,14 +86,20 @@ already in the cache, you won’t need an api key. You will need to provide
 the following keys: t and r. As with the TasteDive cache, be sure to only 
 include those two parameters in order to extract existing data from the cache.
 """
+
+
 def get_movie_data(title: str) -> dict:
-    baseurl2= 'http://www.omdbapi.com/'
-    params_diction2= {}
-    params_diction2['t']= param_string
-    params_diction2['r']= 'json'
-    response2 = requests.get(baseurl2,params= params_diction2) # use requests_with_caching module in the assignment instead of requests module
+    baseurl2 = "http://www.omdbapi.com/"
+    params_diction2 = {}
+    params_diction2["t"] = title
+    params_diction2["r"] = "json"
+    response2 = requests.get(
+        baseurl2, params=params_diction2
+    )  # use requests_with_caching module in the assignment instead of requests module
     response_json = response2.json()
     return response_json
+
+
 """
 Please copy the completed function from above into this active code window. 
 Now write a function called get_movie_rating. It takes an OMDB dictionary 
@@ -84,15 +107,19 @@ result for one movie and extracts the Rotten Tomatoes rating as an integer.
 For example, if given the OMDB dictionary for “Black Panther”, it would return 97. 
 If there is no Rotten Tomatoes rating, return 0.
 """
+
+
 def get_movie_rating(omdb_dictionary_results: dict) -> int:
-    the_result = omdb_dictionary_results['Ratings']
+    the_result = omdb_dictionary_results["Ratings"]
     for key_of_list in the_result:
-        if key_of_list['Source'] == 'Rotten Tomatoes':
-            numerical = int(key_of_list['Value'].strip('%'))
+        if key_of_list["Source"] == "Rotten Tomatoes":
+            numerical = int(key_of_list["Value"].strip("%"))
             break
         else:
-            numerical =  0
+            numerical = 0
     return numerical
+
+
 """
 Now, you'll put it all together. Don't forget to copy all of the functions 
 that you have previously defined into this code window. Define a function get_sorted_recommendations. 
@@ -101,9 +128,15 @@ related movie titles as output, up to five related movies for each input movie t
 The movies should be sorted in descending order by their Rotten Tomatoes rating, as returned by 
 the get_movie_rating function. Break ties in reverse alphabetic order, so that 'Yahşi Batı' comes before 'Eyyvah Eyvah'.
 """
+
+
 def get_sorted_recommendations(movie_titles: list) -> list:
-    related_movies= get_related_titles(movie_titles)
-    related_ratings= [get_movie_rating(get_movie_data(movie)) for movie in related_movies]
-    the_zip_list= zip(related_movies,related_ratings)
-    sorted_by_ratings=  sorted(the_zip_list, key = lambda tup:(tup[1],tup[0]),reverse = True)
+    related_movies = get_related_titles(movie_titles)
+    related_ratings = [
+        get_movie_rating(get_movie_data(movie)) for movie in related_movies
+    ]
+    the_zip_list = zip(related_movies, related_ratings)
+    sorted_by_ratings = sorted(
+        the_zip_list, key=lambda tup: (tup[1], tup[0]), reverse=True
+    )
     return [element[0] for element in sorted_by_ratings]
